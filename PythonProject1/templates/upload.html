@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}סריקת צ׳ק | צ׳ק חכם{% endblock %}
+{% block heading %}סריקה והוספת צ׳ק{% endblock %}
+{% block content %}
+<section class="form-layout">
+  <div class="panel form-panel">
+    <h2>1. צלמי את הצ׳ק</h2>
+    <p class="muted">בטלפון, הכפתור יציע לפתוח מצלמה. אפשר גם לבחור תמונה מהמחשב.</p>
+    <label class="camera-picker" for="check-image"><span class="camera-icon">◎</span><strong>צילום / בחירת תמונה</strong><small>מומלץ לצלם באור טוב, כשהצ׳ק ישר וכולו בתוך התמונה.</small><input id="check-image" type="file" accept="image/*" capture="environment"></label>
+    <div id="preview-wrap" class="preview-wrap hidden"><img id="preview" alt="תצוגה מקדימה של הצ׳ק"><button type="button" id="read-button" class="button full">✦ נסי לזהות טקסט מהתמונה</button></div>
+    <div id="ocr-status" class="ocr-status" aria-live="polite"></div>
+    <label for="ocr-text">הטקסט שהמערכת זיהתה (אפשר לתקן)</label>
+    <textarea id="ocr-text" rows="5" placeholder="לאחר הסריקה, הטקסט שזוהה יופיע כאן..."></textarea>
+    <p class="privacy-note">הדגמה: זיהוי הטקסט מתבצע בדפדפן בעזרת ספרייה חיצונית. יש לבדוק את הפרטים ידנית לפני שמירה.</p>
+  </div>
+  <div class="panel form-panel">
+    <h2>2. בדקי ואשרי פרטים</h2>
+    <p class="muted">השדות מתמלאים לפי מה שנצליח לזהות. תמיד בדקי אותם בעצמך.</p>
+    <form method="post" id="check-form">
+      <label for="customer">שם הלקוח / המושך</label><input id="customer" name="customer" placeholder="בדקי והזיני שם" required>
+      <label for="amount">סכום הצ׳ק (₪)</label><input id="amount" name="amount" type="number" min="0.01" step="0.01" placeholder="0.00" required>
+      <label for="date">תאריך פירעון</label><input id="date" name="date" placeholder="למשל 15/11/2026" required>
+      <button class="button full" type="submit">אישור ושמירת הצ׳ק ←</button>
+    </form>
+    <div class="tip-box"><strong>חשוב לדעת</strong><p>זיהוי מתמונה הוא לא אישור בנקאי. בשלב הזה האתר לא מאמת חתימות, יתרה בחשבון או אם הצ׳ק נפרע.</p></div>
+  </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="{{ url_for('static', filename='scan.js') }}"></script>
+{% endblock %}

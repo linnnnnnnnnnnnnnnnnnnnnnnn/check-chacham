@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}התראות | צ׳ק חכם{% endblock %}
+{% block heading %}התראות ומשימות{% endblock %}
+{% block content %}
+<section class="panel">
+    <div class="section-heading"><div><h2>צ׳קים שדורשים תשומת לב</h2><p>הרשימה מבוססת על הסטטוסים בנתוני ההדגמה</p></div></div>
+    {% for check in checks %}
+    <div class="alert-item">
+        <span class="alert-symbol {{ 'danger' if check.status == 'חזר' else 'warning' }}">{{ '!' if check.status == 'חזר' else '◷' }}</span>
+        <div class="alert-copy"><strong>{{ check.customer }} · ₪ {{ "{:,.0f}".format(check.amount) }}</strong><p>{% if check.status == 'חזר' %}הצ׳ק מסומן כחוזר בהדגמה — מומלץ לבדוק את פרטי המקרה וליצור קשר לפי הצורך.{% else %}הצ׳ק ממתין להפקדה — כדאי לוודא שהוא מטופל בזמן.{% endif %}</p></div>
+        <span class="status {{ 'returned' if check.status == 'חזר' else 'pending' }}">{{ check.status }}</span>
+    </div>
+    {% else %}
+    <div class="empty-state"><div>✓</div><h3>אין כרגע התראות</h3><p>כשצ׳ק ידרוש טיפול, הוא יופיע כאן.</p></div>
+    {% endfor %}
+</section>
+{% endblock %}

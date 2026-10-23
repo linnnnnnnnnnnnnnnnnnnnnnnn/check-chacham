@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}כל הצ׳קים | צ׳ק חכם{% endblock %}
+{% block heading %}כל הצ׳קים{% endblock %}
+{% block content %}
+<section class="panel">
+    <div class="section-heading"><div><h2>רשימת הצ׳קים</h2><p>כל הצ׳קים שהוזנו לסביבת ההדגמה</p></div><a class="button" href="{{ url_for('upload_check') }}">＋ הוספת צ׳ק</a></div>
+    {% include "_check_table.html" %}
+</section>
+{% endblock %}

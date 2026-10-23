@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}צ׳ק חכם{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <aside class="sidebar">
+        <a class="brand" href="{{ url_for('home') }}"><span class="brand-icon">✓</span><span><strong>צ׳ק חכם</strong><small>ניהול צ׳קים פשוט וחכם</small></span></a>
+        <nav>
+            <a class="{{ 'active' if page == 'home' else '' }}" href="{{ url_for('home') }}">⌂ <span>מסך הבית</span></a>
+            <a class="{{ 'active' if page == 'checks' else '' }}" href="{{ url_for('all_checks') }}">▤ <span>כל הצ׳קים</span></a>
+            <a class="{{ 'active' if page == 'upload' else '' }}" href="{{ url_for('upload_check') }}">＋ <span>סריקת צ׳ק</span></a>
+            <a class="{{ 'active' if page == 'alerts' else '' }}" href="{{ url_for('alerts') }}">♧ <span>התראות</span></a>
+        </nav>
+        <div class="sidebar-note"><div class="note-icon">✦</div><strong>לא מפספסים תשלום</strong><p>כל הצ׳קים שלך במקום אחד.</p></div>
+        <div class="demo-label">גרסת הדגמה · אין חיבור לבנק</div>
+    </aside>
+    <main class="main">
+        <header class="topbar"><div><span class="eyebrow">מרכז ניהול העסק</span><h1>{% block heading %}שלום!{% endblock %}</h1></div><div class="profile"><span class="profile-avatar">ע</span><span>העסק שלי</span></div></header>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}{% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+        <footer>צ׳ק חכם · סביבת פיתוח ראשונית</footer>
+    </main>
+</body>
+</html>

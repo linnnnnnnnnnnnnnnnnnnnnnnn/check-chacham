@@ -1,0 +1,18 @@
+<div class="table-wrap">
+<table>
+    <thead><tr><th>לקוח</th><th>מספר צ׳ק</th><th>תאריך פירעון</th><th>סכום</th><th>סטטוס</th></tr></thead>
+    <tbody>
+    {% for check in checks %}
+    <tr>
+        <td><strong>{{ check.customer }}</strong></td>
+        <td>#{{ check.id }}</td>
+        <td>{{ check.date }}</td>
+        <td class="amount">₪ {{ "{:,.2f}".format(check.amount) if check.amount % 1 else "{:,.0f}".format(check.amount) }}</td>
+        <td><span class="status {{ 'paid' if check.status == 'נפרע' else 'returned' if check.status == 'חזר' else 'pending' }}">{{ check.status }}</span></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5" class="empty">עדיין לא הוזנו צ׳קים.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>

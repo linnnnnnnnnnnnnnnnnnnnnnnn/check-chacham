@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}מסך הבית | צ׳ק חכם{% endblock %}
+{% block heading %}התמונה הכספית שלך{% endblock %}
+{% block content %}
+<section class="welcome">
+    <div>
+        <span class="pill light">הניהול שלך, פשוט יותר</span>
+        <h2>כל צ׳ק חשוב.<br>כל פרט בשליטה.</h2>
+        <p>עקבי אחרי הצ׳קים של העסק, זהי מה דורש טיפול ושמרי על סדר.</p>
+        <a class="button white-button" href="{{ url_for('upload_check') }}">＋ הוספת צ׳ק חדש</a>
+    </div>
+    <div class="welcome-art"><div class="art-check"><span>✓</span><div class="fake-line"></div><div class="fake-line short"></div><div class="fake-amount">₪ 5,200</div></div><div class="sparkle">✦</div></div>
+</section>
+
+<section class="stats">
+    <article class="stat-card"><span class="stat-icon blue">▤</span><p>סה״כ צ׳קים במערכת</p><strong>{{ checks|length }}</strong><small>צ׳קים שהוזנו למערכת</small></article>
+    <article class="stat-card"><span class="stat-icon orange">◷</span><p>ממתינים להפקדה</p><strong>{{ checks|selectattr('status', 'equalto', 'ממתין להפקדה')|list|length }}</strong><small>כדאי לבדוק ולטפל</small></article>
+    <article class="stat-card"><span class="stat-icon green">✓</span><p>נפרעו</p><strong>{{ checks|selectattr('status', 'equalto', 'נפרע')|list|length }}</strong><small>לפי נתוני ההדגמה</small></article>
+    <article class="stat-card"><span class="stat-icon red">!</span><p>דורשים טיפול</p><strong>{{ checks|selectattr('status', 'equalto', 'חזר')|list|length }}</strong><small>בדקי את פרטי הצ׳ק</small></article>
+</section>
+
+<section class="panel">
+    <div class="section-heading"><div><h2>צ׳קים אחרונים</h2><p>סקירה מהירה של הצ׳קים שהוזנו</p></div><a class="text-link" href="{{ url_for('all_checks') }}">לכל הצ׳קים ←</a></div>
+    {% include "_check_table.html" %}
+</section>
+{% endblock %}
